@@ -5,13 +5,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const prisma = require('../utils/prisma.js')
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
+    const hashedPassword = await bcrypt.hash(password, 10)
+    
     const createdUser = await prisma.user.create({
         data: {
-            username,
-            password
+            username: username,
+            password: hashedPassword
         }
     });
 
