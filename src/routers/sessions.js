@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
         foundUser.password
     )
 
-    if (!foundUser || password !== foundUser.password) {
+    if (!foundUser || !validPassword) {
         return res.status(401).json({ error: 'Invalid username or password.' });
     }
 
